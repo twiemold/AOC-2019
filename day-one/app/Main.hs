@@ -1,4 +1,7 @@
 module Main where
+import Text.Read
 
 main :: IO ()
-main = putStrLn "Hello, Haskell!"
+main = do
+    contents <- readFile "app/input.txt"
+    print . map (readMaybe :: String -> Maybe Int) . words $ contents
