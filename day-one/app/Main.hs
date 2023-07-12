@@ -6,4 +6,4 @@ main :: IO ()
 readMaybeInt = readMaybe :: String -> Maybe Int
 main = do
     contents <- readFile "app/input.txt"
-    print . sum $ map ($ 2) $ map (-) . map ($ 3) $ map div . mapMaybe readMaybeInt . words $ contents
+    print . sum $ map (\x -> div x 3 - 2) . mapMaybe readMaybeInt . words $ contents
