@@ -1,7 +1,9 @@
 module Main where
-import Text.Read
+import Text.Read (readMaybe)
+import Data.Maybe (mapMaybe)
 
 main :: IO ()
+readMaybeInt = readMaybe :: String -> Maybe Int
 main = do
     contents <- readFile "app/input.txt"
-    print . map (readMaybe :: String -> Maybe Int) . words $ contents
+    print . mapMaybe readMaybeInt . words $ contents
