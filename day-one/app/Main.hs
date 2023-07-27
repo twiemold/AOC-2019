@@ -3,17 +3,22 @@ import Text.Read (readMaybe)
 import Data.Maybe (mapMaybe)
 
 main :: IO ()
-fuelCalc :: [Int] -> Int
+fuelCalc :: [Int] -> [Int]
+moduleCalc :: Int -> Int
 
-fuelCalc x = sum $ map (\y -> div y 3 - 2) $ x
+moduleCalc x = (div x 3 - 2)
+fuelCalc [] = []
+fuelCalc (x:xs)
+  | moduleCalc(x) > 0 = moduleCalc(x) : fuelCalc(moduleCalc(x): xs)
+  | otherwise = fuelCalc(xs)
 readMaybeInt = readMaybe :: String -> Maybe Int
 
 test = do
-    print "hi"
-    print . fuelCalc $ [100756]
+    print . sum $ fuelCalc $ [14, 1969, 100756]
+    
 
 main = do
     test
     contents <- readFile "app/input.txt"
-    print . fuelCalc . mapMaybe readMaybeInt . words $ contents
+    print . sum . fuelCalc . mapMaybe readMaybeInt . words $ contents
 
